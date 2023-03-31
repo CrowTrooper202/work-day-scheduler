@@ -5,11 +5,11 @@
 $(function () {
   //added date and timer
   var currentTimeHeader = $('#currentDay')
-setInterval(myTimer, 1000);
-function myTimer() {
-  const date = new Date();
-  document.getElementById("currentDay").innerHTML = "Today is " + dayjs().format('MMM D, YYYY, a ')+  date.toLocaleTimeString();
-}
+  setInterval(myTimer, 1000);
+  function myTimer() {
+    const date = new Date();
+    document.getElementById("currentDay").innerHTML = "Today is " + dayjs().format('MMM D, YYYY, a ') + date.toLocaleTimeString();
+  }
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -18,17 +18,39 @@ function myTimer() {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  var comment = document.getElementsByClassName("btn saveBtn col-2 col-md-1");
+  var saveButton = document.getElementById("save");
 
-  
+
+  saveButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var saveMemo = {
+      commen: comment.value.trim()
+    }
+
+    localStorage.setItem("saveMemo", JSON.stringify(saveMemo));
+    renderMessage();
+
+  });
+  function renderMessage() {
+    var lastMemo = JSON.parse(localStorage.getItem("saveMemo"));
+    if (lastMemo !== null) {
+      document.querySelector(".col-8 col-md-10 description").textContent = lasMemo
+    }
+  }
+
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+
+  
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
- 
-});
+
+})
