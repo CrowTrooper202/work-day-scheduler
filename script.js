@@ -63,6 +63,6 @@ $(function () {
       else if (timeCode < e.target.id) {
         element.timeblocke.state = "past";
       }
-
     }
   })
+})
