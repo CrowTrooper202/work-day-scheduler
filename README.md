@@ -18,7 +18,7 @@
 ## Installation
 
 
-[day scheduler]()
+[day scheduler](https://crowtrooper202.github.io/work-day-scheduler/)
 
 
 ## Usage
