@@ -41,19 +41,28 @@ $(function () {
 
 
 
-
   //set up if statement
   // if current time equals value of ID  change class row timeblock to present
   // else if current time is less than value of ID change class row time block to future
   // else if current time is greater than vaule of ID change class row time block to past
+  //how to subsatute click?
+
   var timeCode = dayjs().format('H')
-  if (timeCode == id){
 
-  }
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
+  container.addEventListener("click", function (event) {
+    var element = event.target;
+    if (timeCode == e.target.id) {
+      var state = element.getAttribute('timeblock');
 
-})
+      if (state !== "present") {
+        element.timeblocke.state = "present";
+      }
+      else if (timeCode > e.target.id) {
+        element.timeblocke.state = "future";
+      }
+      else if (timeCode < e.target.id) {
+        element.timeblocke.state = "past";
+      }
+
+    }
+  })
