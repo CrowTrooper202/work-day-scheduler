@@ -18,24 +18,40 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  var comment = document.getElementsByClassName("btn saveBtn col-2 col-md-1");
-  var saveButton = document.getElementById("save");
+  // var comment = document.getElementsByClassName("btn saveBtn col-2 col-md-1");
+  // var saveButton = document.getElementById("save");
 
-
-  saveButton.addEventListener("click", function (event) {
+  $('.saveBtn').on('click', function (event) {
     event.preventDefault();
-    var saveMemo = {
-      commen: comment.value.trim()
-    }
 
-    localStorage.setItem("saveMemo", JSON.stringify(saveMemo));
+    var comment = $(this).siblings('.description').val()
+
+    // var saveMemo = {
+    //   comment: comment.trim()
+    // }
+
+    var blockId = $(this).parent().attr('id')
+
+    localStorage.setItem(blockId, comment);
     renderMessage();
 
-  });
+  })
+  $('#hour-16 .description').val(localStorage.getItem('hour-16'))
+
+  // saveButton.addEventListener("click", function (event) {
+  //   event.preventDefault();
+  //   var saveMemo = {
+  //     commen: comment.value.trim()
+  //   }
+
+  //   localStorage.setItem("saveMemo", JSON.stringify(saveMemo));
+  //   renderMessage();
+
+  // });
   function renderMessage() {
     var lastMemo = JSON.parse(localStorage.getItem("saveMemo"));
     if (lastMemo !== null) {
-      document.querySelector(".description").textContent = lasMemo
+      document.querySelector(".description").textContent = lastMemo
     }
   }
 
@@ -47,22 +63,35 @@ $(function () {
   // else if current time is greater than vaule of ID change class row time block to past
   //how to subsatute click?
 
-  var timeCode = dayjs().format('H')
+  
+  
+  function timeUpdate () {
+    var timeCode = dayjs().format('H')
+  
+    $('.time-block').each(function() {
+      var elHour = parseInt($(this).attr('id').split('-')[1])
+      console.log(typeof elHour);
+      if (timeCode == elHour) {
+        $(this).removeClass('past')
+        $(this).removeClass('future')
+        $(this).addClass('present')  
+      } else if (timeCode < elHour) {
+        $(this).addClass('past')
+        $(this).removeClass('future')
+        $(this).removeClass('present')
+        }
+        else if (timeCode > elHour) {
+          $(this).removeClass('past')
+          $(this).addClass('future')
+          $(this).removeClass('present')
+        }
+        
 
-  container.addEventListener("click", function (event) {
-    var element = event.target;
-    if (timeCode == e.target.id) {
-      var state = element.getAttribute('timeblock');
+    })
+  }
 
-      if (state !== "present") {
-        element.timeblocke.state = "present";
-      }
-      else if (timeCode > e.target.id) {
-        element.timeblocke.state = "future";
-      }
-      else if (timeCode < e.target.id) {
-        element.timeblocke.state = "past";
-      }
-    }
-  })
+  timeUpdate()
+
+  setInterval(timeUpdate, 50000)
+
 })
