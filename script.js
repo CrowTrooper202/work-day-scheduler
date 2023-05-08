@@ -36,7 +36,12 @@ $(function () {
     renderMessage();
 
   })
-  $('#hour-16 .description').val(localStorage.getItem('hour-16'))
+
+  for (let i = 7; i <= 19; i++) {
+    $('#hour-' +i+ ' .description').val(localStorage.getItem('hour-'+i))
+    
+  }
+  // $('#hour-16 .description').val(localStorage.getItem('hour-16'))
 
   // saveButton.addEventListener("click", function (event) {
   //   event.preventDefault();
